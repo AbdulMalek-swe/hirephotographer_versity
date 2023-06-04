@@ -12,94 +12,55 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 const PhotoUpload = () => {
-    const [upImg, setUpImg] = useState();
-    const [cookie] = useCookies("token");
-    let token = cookie["token"];
-    const navigate = useNavigate()
-    const [img,setImg] = useState({})
-    const user = useSelector(state=>state?.reducer?.user)
-     
-    const handleImage = e => {
-    //  console.log(e.target.files);
-    const getImageExtension = (filename) => {
-      const parts = filename.split('.');
-      return parts[parts.length - 1];
+    const user = useSelector(state=>state.reducer.user)
+    console.log(user);
+    const [file, setFile] = useState(null);
+    const handleChange = (e) => {
+      setFile(e.target.files[0]);
     };
-    
-    const imageName = e.target.files[0].name;
-    const imageExtension = getImageExtension(imageName);
-    console.log(imageExtension);
-     const formadata = new FormData()
-      
-    
-      if (e.target.files && e.target.files.length > 0) {
-        const reader = new FileReader();
-        reader.addEventListener('load', () => setUpImg(reader.result));
-        reader.readAsDataURL(e.target.files[0]);
-      }
-      // const formadata = new FormData()
-      console.log(e.target.files[0]);
-      formadata.append("imageURL", e.target.files[0])
-      if (token) {
-        axios.post("/upload-user", formadata)
-          .then(res => {
-            console.log(res, "thisis werowert");
-            if(res.status===200){
-              toast.success("Photo Upload Succefully");
-            // setImg(res?.data?.data)
-           
-             
-            }
-          })
-      }
-      else {
-        navigate("/login")
-      }
-    }
-  
-  
-    return (
-        <section className="  ">
-      <div className="container-sk lg:py-40 md:py-20 py-10">
-        <div className='flex justify-center '>
-          <h1 className='font-display w-full lg:text-5xl md:text-4xl text-2xl text-center '>Take your photo to the next level.</h1>
-        </div>
-        <p className='pt-4 font-display w-full lg:text-3xl md:text-2xl text-xl text-center'>Upload your photo below</p>
-        <div className='flex justify-center'>
-          
-          { !user.email?  <Button
-            variant="contained"
-            component="label"
-            className='font-display lg:text-3xl text-2xl bg-primary hover:bg-primary2 text-white mt-5 capitalize'
-            // onClick={() => navigate("/login")}
-          >
-            <PhotoCameraIcon className='mr-3 lg:text-3xl text-2xl' /> Upload Now
-            <input
-              hidden
-            />
-          </Button>:<Button
-            variant="contained"
-            component="label"
-            className='font-display lg:text-3xl text-2xl bg-primary hover:bg-primary2 text-white mt-5 capitalize'
-          >
-            <PhotoCameraIcon className='mr-3 lg:text-3xl text-2xl' /> Upload Now
-            <input
-              type="file"
-              hidden
-              onChange={handleImage}
-            />
-          </Button>
-        
-        }
-
-        </div>
-        {/* <Crops upImg={upImg} /> */}
-         {/* <img src={imageUrl} alt='loading...'/> */}
+    const handleUpload = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
          
-         {/* <button onClick={handleDownload}>Download Image</button> */}
-      </div>
+        formData.append("file", file);
+        formData.append("email", user.email);
+        try {
+          const res = await fetch("http://localhost:5000/api/v1/upload-user", {
+            method: "POST",
+            body: formData,
+          });
+          const data = await res.json();
+           if(data.modifiedCount==1){
+            // window.location.reload() 
+           }
+        } catch (err) {
+         
+        }
+      };
+    
+    return (
+        <div className='container flex justify-center'>
 
-    </section>
+            <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <div className="flex justify-end px-4 pt-4">
+
+
+                    <div id="dropdown" className="z-10  text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                 <input type='file' onChange={handleChange}/>
+                   <button onClick={handleUpload}>submit</button>
+                    </div>
+                </div>
+                <div className="flex flex-col items-center pb-10">
+                    {/* <img className="w-24 h-24 mb-3 rounded-full shadow-lg" src= "" alt="Bonnie imasge" />                    */}
+                   
+                    
+                    <div className="flex mt-4 space-x-3 md:mt-6">
+              
+                    </div>
+                </div>
+            </div>
+
+        </div>
     );
 };
 
