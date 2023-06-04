@@ -12,11 +12,12 @@ const Sidebar = () => {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
-  const user = useSelector(state=>state?.reducer?.user)
-    const handleDelete = e =>{
-      store.dispatch(addUserActions.removeUser());
-      removeCookie("access_token", { path: "/" });
-    }
+  const user = useSelector(state => state?.reducer?.user)
+  console.log(user);
+  const handleDelete = e => {
+    store.dispatch(addUserActions.removeUser());
+    removeCookie("access_token", { path: "/" });
+  }
   return (
     <div className="relative z-10">
       <button
@@ -51,15 +52,12 @@ const Sidebar = () => {
             </svg>
           </button>
         </div>
-<div>
-<svg width="215" height="75" viewBox="0 0 205 87" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7.86464 1C-22.3218 127.813 93.4871 86.8741 203 25.9245" stroke="white" stroke-width="5" />
-            <text x="35%" y="45%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="50"   className="dd font-old-english text-black"
-          style={{ fontFamily: 'Old English', fontStyle: 'normal' }}  >
-              Demo
-            </text>
-          </svg>
-</div>
+        <div>
+             {user?.imageURL&&<img className='ml-5 w-10 h-10 rounded-full' src={user.imageURL} alt='loading'/>}
+             <Link to="/upload" className='ml-5'>
+              Upload
+             </Link>
+        </div>
         <nav className="flex-1">
           <ul className="space-y-4 p-4">
             <li>
@@ -73,15 +71,15 @@ const Sidebar = () => {
               </a>
             </li>
             <li>
-              <a href="#" className="text-gray-400 hover:text-white">
-                Services
-              </a>
+              <Link to="/contact" className="text-gray-400 hover:text-white">
+                Contact Us
+              </Link>
             </li>
             <li>
               {!user.email && <Link to="/login" className="text-gray-400 hover:text-white">
-               Sign In
+                Sign In
               </Link>}
-             { user.email && <button onClick={handleDelete} className="text-gray-400 hover:text-white">
+              {user.email && <button onClick={handleDelete} className="text-gray-400 hover:text-white">
                 Log out
               </button>}
             </li>

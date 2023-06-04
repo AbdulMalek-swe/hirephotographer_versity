@@ -3,7 +3,8 @@ const UserData = {
   email: "",
   firstName: "",
   lastName: "",
-  role:""
+  role:"",
+  imageURL:""
    
 };
 const addUserSlices = createSlice({
@@ -15,12 +16,14 @@ const addUserSlices = createSlice({
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
       state.role = action.payload.role;
+      state.imageURL = action.payload.imageURL;
     },
     removeUser: (state, action) => {
       state.email = "";
       state.firstName =  "";
       state.lastName = "";
       state.role = "";
+      state.imageURL = ""
     },
   },
 });

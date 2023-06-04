@@ -5,10 +5,10 @@ import { Navigate } from "react-router-dom";
  
  
 const ProtectedRoute = ({children}) => {
-const [cookies] = useCookies(['token']);
-  const token = cookies['token'];
+const [cookies] = useCookies(['access_token']);
+  const token = cookies['access_token'];
    if (!token || token==undefined) {
-      return <Navigate to="/" replace />;
+      return <Navigate to="/login" replace />;
     }
     return children;
 };

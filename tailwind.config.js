@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {},
     backgroundImage: {
-      'hero-pattern': "url('/src/assets/unnamed.jpg')",
+      'hero-pattern': "url('/src/assets/unnamed.jpeg')",
       'footer-texture': "url('/img/footer-texture.png')",
     },
     daisyui: {

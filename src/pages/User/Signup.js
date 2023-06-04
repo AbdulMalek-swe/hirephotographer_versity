@@ -1,11 +1,11 @@
 import React, {   useEffect, useState } from 'react';
-import pic from 'assets/unnamed.jpg'
+import pic from 'assets/unnamed.jpeg'
 import { Link, useNavigate  } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
  
 // import {  useGoogleLogin } from '@react-oauth/google';
  
-import load from 'assets/unnamed.jpg'
+import load from 'assets/unnamed.jpeg'
 import { useCookies } from 'react-cookie';
 import { toast } from 'react-toastify';
 import axios from '../../apiService/axios';
@@ -71,7 +71,8 @@ useEffect(()=>{
       </div>
       <div class="bg-[#11213e] i relative hidden w-1/2 items-center justify-around overflow-hidden   md:flex  ">
         <div>
-          <img src={pic} alt='loading...' />
+          <h1 className='text-white  font-extrabold  text-6xl text-center'>  HIRE PHOTOGRAPHER  </h1>
+     
         </div>
       </div>
     </div>

@@ -21,7 +21,7 @@ const AppLayout = () => {
         }
         catch{
           removeCookie("access_token", { path: "/" });
-          navigate("/")
+          // navigate("/")
         }
         
        }

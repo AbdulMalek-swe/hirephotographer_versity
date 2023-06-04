@@ -1,6 +1,6 @@
  
 import React, { useEffect, useState } from 'react';
-import myImage from 'assets/unnamed.jpg'
+ 
 import axios from 'apiService/axios';
 const Photographer = () => {
   const [photographer,setPhotographer] = useState([])
