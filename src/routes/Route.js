@@ -26,6 +26,10 @@ const route = createBrowserRouter([
           {
                path:"/",
                element:<Home/>
+          },
+          {
+               path:"/about",
+               element:<About/>
           }
           
        ]
@@ -49,10 +53,6 @@ const route = createBrowserRouter([
      {
           path:"/contact",
           element:<Contact/>
-     },
-     {
-          path:"/about",
-          element:<About/>
      }
 ])
 export default route;

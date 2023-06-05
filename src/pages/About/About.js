@@ -51,7 +51,7 @@ const About = () => {
       <Box className="container-sk border-white border   lg:p-10 p-5 rounded-xl">
         <h2 className="font-display text-center  text-white lg:text-4xl md:text-2xl text-xl">
           {" "}
-          How it works ?{" "}
+           About us{" "}
         </h2>
         <Stepper
           activeStep={activeStep}
