@@ -10,10 +10,13 @@ import ProtectedRoute from "./protectedRoute/protectedRoute";
 import Contact from "pages/Contact/Contact";
 import Error from "Componants/Error/Error";
 import PhotoUpload from "pages/User/PhotoUpload";
+import About from "pages/About/About";
  
  
 const { createBrowserRouter } = require("react-router-dom");
- 
+ const user = ()=>{
+   
+ }
 const route = createBrowserRouter([
      {
        path:"/",
@@ -46,6 +49,10 @@ const route = createBrowserRouter([
      {
           path:"/contact",
           element:<Contact/>
+     },
+     {
+          path:"/about",
+          element:<About/>
      }
 ])
 export default route;

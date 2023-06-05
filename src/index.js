@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+ 
 import reportWebVitals from './reportWebVitals';
 import { CssBaseline, StyledEngineProvider,ThemeProvider ,createTheme} from '@mui/material';
 import { ToastContainer } from 'react-toastify';
@@ -16,6 +16,8 @@ import 'react-multi-carousel/lib/styles.css';
  const theme = createTheme({
 
  })
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   
@@ -26,7 +28,9 @@ root.render(
       
       />
       <Provider store={store}>
+     
       <RouterProvider router={route}/>
+     
       </Provider>
      
     </ThemeProvider>

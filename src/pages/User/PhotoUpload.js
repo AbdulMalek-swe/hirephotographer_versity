@@ -25,17 +25,23 @@ const PhotoUpload = () => {
         formData.append("file", file);
         formData.append("email", user.email);
         try {
-          const res = await fetch("http://localhost:5000/api/v1/upload-user", {
-            method: "POST",
-            body: formData,
-          });
-          const data = await res.json();
-           if(data.modifiedCount==1){
-            // window.location.reload() 
-           }
-        } catch (err) {
-         
-        }
+            const res = await axios.post("/upload-user", formData);
+            
+            if (res.status === 200) {
+              const data = res.data;
+              
+              if (data.modifiedCount === 1) {
+                // Success
+                // window.location.reload();
+              } else {
+                console.error("Failed to upload the file");
+              }
+            } else {
+              console.error("Failed to upload the file. Server responded with status:", res.status);
+            }
+          } catch (err) {
+            console.error("Error uploading the file:", err);
+          }
       };
     
     return (
