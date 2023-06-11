@@ -11,6 +11,7 @@ import route from 'routes/Route';
 import { Provider } from 'react-redux';
 import store from 'rtk/store/store';
 import 'react-multi-carousel/lib/styles.css';
+import App from 'App';
  
  
  const theme = createTheme({
@@ -29,8 +30,8 @@ root.render(
       />
       <Provider store={store}>
      
-      <RouterProvider router={route}/>
-     
+      {/* <RouterProvider router={route}/> */}
+     <App/>
       </Provider>
      
     </ThemeProvider>

@@ -1,3 +1,4 @@
+import Footer from 'Componants/Footer/Footer';
 import HeroSection from 'Componants/Hero/Hero';
 import axios from 'apiService/axios';
 import React, { useEffect } from 'react';
@@ -13,7 +14,7 @@ const AppLayout = () => {
         <div>
             <HeroSection/>
             <Outlet/>
-            <div>goto mosque</div>
+            <Footer/>
         </div>
     );
 };

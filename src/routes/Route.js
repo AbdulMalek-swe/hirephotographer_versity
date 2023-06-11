@@ -11,6 +11,7 @@ import Contact from "pages/Contact/Contact";
 import Error from "Componants/Error/Error";
 import PhotoUpload from "pages/User/PhotoUpload";
 import About from "pages/About/About";
+import Stripe from "pages/Payment/Stripe";
  
  
 const { createBrowserRouter } = require("react-router-dom");
@@ -53,6 +54,10 @@ const route = createBrowserRouter([
      {
           path:"/contact",
           element:<Contact/>
+     },
+     {
+          path:"/payment/:id",
+          element:<Stripe/>
      }
 ])
 export default route;
