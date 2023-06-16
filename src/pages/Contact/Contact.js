@@ -10,7 +10,7 @@ const Contact = () => {
     const navigate = useNavigate()
     const user = useSelector(state=>state.reducer?.user)
     console.log(user);
-const onsubmit= (data)=>{
+       const onsubmit= (data)=>{
     console.log(data);
     const userData ={   message:data.message }
     console.log(userData);

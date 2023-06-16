@@ -61,7 +61,7 @@ background-color: transparent;
 .rotate-border::before {
   content: "";
   background-image: conic-gradient(
-    #FF0000 70deg,
+    green 70deg,
     transparent 0deg
   );
   z-index: 0;
@@ -76,7 +76,7 @@ background-color: transparent;
 .rotate-border::after {
   content: "";
   background-image: conic-gradient(
-    #FF0000 70deg,
+    green 70deg,
     transparent 0deg
   );
   z-index: 0;
@@ -85,10 +85,6 @@ background-color: transparent;
   position: absolute;
   animation: rotate2 6s linear infinite;
 }
-
-
-
-
 @keyframes rotate1 {
   0% {
     transform: rotate(0deg);
