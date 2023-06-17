@@ -12,6 +12,7 @@ import Error from "Componants/Error/Error";
 import PhotoUpload from "pages/User/PhotoUpload";
 import About from "pages/About/About";
 import Stripe from "pages/Payment/Stripe";
+import Contacts from "pages/Dashboard/Contact";
  
  
 const { createBrowserRouter } = require("react-router-dom");
@@ -54,6 +55,10 @@ const route = createBrowserRouter([
      {
           path:"/contact",
           element:<Contact/>
+     },
+     {
+          path:"/contacts",
+          element:<Contacts/>
      },
      {
           path:"/payment/:id",

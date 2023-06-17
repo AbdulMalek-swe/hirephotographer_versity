@@ -17,16 +17,11 @@ const Contact = () => {
     axios.post('/contact',userData)
       .then(data => {
          if(data.status==200){
-          toast.success("successfully register")
-          navigate("/")
+          toast.success("successfully accept contact")
          }
-       
       })
       .catch(error =>  {
-        // setLoader(false)
-        console.log(error);
-        
-        toast.error(error.response.data.error)
+        console.log(error.message);
       });
       reset()
   }
@@ -36,31 +31,22 @@ const Contact = () => {
                 <div className='container-ml   pb-10'>
                     <div className='pt-1  '>
                         <h1 className='text-white text-[40px] px-3 border-l-[5px] border-white h-[60px] my-12 '>Contact with us</h1>
-
                     </div>
                     <div>
                         <form className="space-y-4" onSubmit={handleSubmit(onsubmit)}>
                             <div className='grid grid-cols-2 gap-4'>
                                 <div>
                                     <CustomeLabel name={"Message"} />
-                                    <textarea type="text" placeholder="Enter your name" className="block w-full px-5 py-3 mt-2 text-[#eae9e9d4]  placeholder-[#eae9e9d4] bg-transparent shadow-lg rounded-lg " {...register("message")} required />
-                                </div>
-                                 
-                                
+                                    <textarea type="text" placeholder="Enter your oponion" className="block w-full px-5 py-3 mt-2 text-[#eae9e9d4]  placeholder-[#eae9e9d4] bg-transparent shadow-lg rounded-lg " {...register("message")} required />
+                                </div>                              
                             </div>
-
                             <button className="  mx-auto max-w-xs px-6 py-3 mt-4 text-sm font-medium tracking-wide   capitalize transition-colors duration-300 transform bg-[#FFFFFFB2] rounded-lg hover:bg-blue-400 flex justify-center items-center gap-4  ">
                                 <span className='text-[#002868]  '>SEND NOW</span>
-
                             </button>
                         </form>
                     </div>
-
-
                 </div>
             </div>
-
-
         </div>
     );
 };
