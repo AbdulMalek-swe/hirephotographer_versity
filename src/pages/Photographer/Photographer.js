@@ -14,7 +14,8 @@ const Photographer = () => {
     })
   },[])
     return (
-        <div  className='flex flex-wrap gap-5'>
+       <div className='container-sk'>
+         <div  className='flex flex-wrap gap-y-3 '>
            { photographer.map(item=><div className="max-w-xs mx-auto bg-white rounded shadow-lg p-6 relative border border-[#BECCBE]">
       <div className="flex items-center justify-center" key={item._id}>
         <img src={item.imageURL} alt="loading ..." className="w-[150px] h-[150px] rounded-full" />
@@ -38,6 +39,7 @@ const Photographer = () => {
     </div>) }
 
         </div>
+       </div>
     );
 };
 

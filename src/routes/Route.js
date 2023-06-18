@@ -13,6 +13,7 @@ import PhotoUpload from "pages/User/PhotoUpload";
 import About from "pages/About/About";
 import Stripe from "pages/Payment/Stripe";
 import Contacts from "pages/Dashboard/Contact";
+import PhotographerHandle from "pages/Dashboard/PhotographerHandle";
  
  
 const { createBrowserRouter } = require("react-router-dom");
@@ -63,6 +64,10 @@ const route = createBrowserRouter([
      {
           path:"/payment/:id",
           element:<Stripe/>
-     }
+     },
+      {
+          path:"/photographer-handle",
+          element:<PhotographerHandle/>
+     },
 ])
 export default route;

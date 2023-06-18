@@ -71,6 +71,11 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
+              <Link to="/photographer-handle" className="text-gray-400 hover:text-white">
+                Photographer
+              </Link>
+            </li>
+            <li>
               <Link to="/contact" className="text-gray-400 hover:text-white">
                 Contact Us
               </Link>
