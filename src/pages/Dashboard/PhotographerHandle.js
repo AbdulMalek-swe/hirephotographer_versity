@@ -12,9 +12,34 @@ const PhotographerHandle = () => {
       })
     },[])
     const handleDelete=e=>{
-        axios.delete(`photographer/delete/${e}`)
+        axios.delete(`/photographer/${e}`)
         .then(response => {
           console.log('Delete request succeeded!');
+          const filter = photographer.filter(item=>item._id!==e)
+          setPhotographer(filter)
+          // Handle the response data here if needed
+        })
+        .catch(error => {
+          console.error('Error occurred while making the delete request:', error);
+          // Handle the error here
+        });
+    }
+    const handleActive=(e,bool)=>{
+        let status;
+        console.log(bool);
+        if(bool=='false'){
+            status = true;
+            console.log(status);
+        }
+        else{
+            status = false;
+            console.log(status);
+        }
+        axios.patch(`/photographer/${e}`,{value:status})
+        .then(response => {
+          console.log('Delete request succeeded!');
+        //   const filter = photographer.filter(item=>item._id!==e)
+        //   setPhotographer(filter)
           // Handle the response data here if needed
         })
         .catch(error => {
@@ -42,7 +67,7 @@ const PhotographerHandle = () => {
         <div className='text-center'>
             <button className='bg-black hover:underline text-white px-3 py-1 rounded-sm mx-2' onClick={()=>handleDelete(item?._id)}>delete</button>
             <button className='bg-black hover:underline text-white px-3 py-1 rounded-sm mx-2'>update</button>
-            <button className='bg-black hover:underline text-white px-3 py-1 rounded-sm mx-2'>active</button>
+            <button className='bg-black hover:underline text-white px-3 py-1 rounded-sm mx-2'  onClick={()=>handleActive(item?._id,item?.activeStatus)}>active {item.activeStatus}</button>
             
         </div>
       </div>) }
