@@ -14,6 +14,7 @@ import About from "pages/About/About";
 import Stripe from "pages/Payment/Stripe";
 import Contacts from "pages/Dashboard/Contact";
 import PhotographerHandle from "pages/Dashboard/PhotographerHandle";
+import ProfileF from "pages/User/Profile";
  
  
 const { createBrowserRouter } = require("react-router-dom");
@@ -33,6 +34,10 @@ const route = createBrowserRouter([
           {
                path:"/about",
                element:<About/>
+          },
+          { 
+               path:"/profile",
+               element:<ProfileF/>
           }
           
        ]
@@ -69,5 +74,6 @@ const route = createBrowserRouter([
           path:"/photographer-handle",
           element:<PhotographerHandle/>
      },
+     
 ])
 export default route;

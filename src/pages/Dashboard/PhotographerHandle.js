@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'apiService/axios'
-import { Link } from 'react-router-dom';
+ 
 const PhotographerHandle = () => {
     const [photographer,setPhotographer] = useState([])
   
@@ -64,7 +64,7 @@ const PhotographerHandle = () => {
         <p>Photography</p>
         <p>Photography</p>
         </div>
-        <div className='text-center'>
+        <div className='flex justify-center flex-wrap gap-2'>
             <button className='bg-black hover:underline text-white px-3 py-1 rounded-sm mx-2' onClick={()=>handleDelete(item?._id)}>delete</button>
             <button className='bg-black hover:underline text-white px-3 py-1 rounded-sm mx-2'>update</button>
             <button className='bg-black hover:underline text-white px-3 py-1 rounded-sm mx-2'  onClick={()=>handleActive(item?._id,item?.activeStatus)}>active {item.activeStatus}</button>

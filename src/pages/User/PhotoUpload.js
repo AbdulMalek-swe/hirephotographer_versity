@@ -1,73 +1,163 @@
-import { Button } from '@mui/material'
-import React, { useState } from 'react'
-import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom';
-
-import axios from 'apiService/axios';
-
-
+import React, { useRef } from "react";
+import { useEffect, useState } from "react";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import Button from "@mui/material/Button";
+import SaveIcon from "@mui/icons-material/Save";
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
+import DoNotDisturbIcon from "@mui/icons-material/DoNotDisturb";
+import axios from "apiService/axios";
  
-import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
+ 
+import noimg from 'assets/unnamed.jpeg'
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import store from "rtk/store/store";
+import { addUserActions } from "rtk/feature/addUserSlice";
+ 
+export default function ImageSection() {
+  const fileInputRef = useRef(null);
+  const [picture, setPicture] = useState([]);
+  const [preview, setPreview] = useState();
+  const User = useSelector((state) => state?.reducer?.User);
+  // console.log(User);
+  const myImg = process.env.REACT_APP_BASE_URL + User?.profile_picture[0]?.img ;
+   
+  // console.log(myImg,process.env.REACT_BASE_URL);
+  useEffect(()=>{
+      setPreview(myImg) 
+  },[myImg])
+ 
+ 
 
-const PhotoUpload = () => {
-    const user = useSelector(state=>state.reducer.user)
-    console.log(user);
-    const [file, setFile] = useState(null);
-    const handleChange = (e) => {
-      setFile(e.target.files[0]);
-    };
-    const handleUpload = async (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-         
-        formData.append("file", file);
-        formData.append("email", user.email);
-        try {
-            const res = await axios.post("/upload-user", formData);
-            
-            if (res.status === 200) {
-              const data = res.data;
-              
-              if (data.modifiedCount === 1) {
-                // Success
-                // window.location.reload();
-              } else {
-                console.error("Failed to upload the file");
-              }
-            } else {
-              console.error("Failed to upload the file. Server responded with status:", res.status);
-            }
-          } catch (err) {
-            console.error("Error uploading the file:", err);
-          }
-      };
-    
-    return (
-        <div className='container flex justify-center'>
+  const triggerInputFile = () => {
+    fileInputRef.current.click();
+  };
 
-            <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <div className="flex justify-end px-4 pt-4">
+  
+  useEffect(() => {
+    if (picture?.size > 0) {
+      const objectUrl = URL.createObjectURL(picture);
+      setPreview(objectUrl);
+    }
+  }, [picture]);
 
+  const uniqueParam = new Date().getTime();
 
-                    <div id="dropdown" className="z-10  text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                 <input type='file' onChange={handleChange}/>
-                   <button onClick={handleUpload}>submit</button>
-                    </div>
-                </div>
-                <div className="flex flex-col items-center pb-10">
-                    {/* <img className="w-24 h-24 mb-3 rounded-full shadow-lg" src= "" alt="Bonnie imasge" />                    */}
-                   
-                    
-                    <div className="flex mt-4 space-x-3 md:mt-6">
-              
-                    </div>
-                </div>
-            </div>
+  const UpdateProfileAvatar = async () => {
+    toast.success("profile pic uploaded");
+    const formData = new FormData();
+   
+    formData.append("img", picture);
+  
+    // const loading = toast.loading("Please wait a moment...");
+    try {
+      const res = await axios.post(`/api/account/profile-picture/`, formData);
+      const { status, data } = res;
+    console.log(res);
+      if (status === 200) {
+       
+        {
+          setPicture([]);setPreview(null)
+        };
+        // toast.dismiss(loading);
+        toast.success(data?.message);
+        store.dispatch(addUserActions.addUser(data?.user));
+     
+      }
+    } catch (error) {
+      const { status, data } = error?.response;
+      
+      if (status === 422) {
+        // console.log("422 test");
+        Object.entries(data?.errors)?.map((error) => toast.error(error[1][0]));
+      } else {
+        toast.error(data?.error);
+      }
+      // console.log("error from submit", error);
+    }
+  };
+  console.log(preview);
+  return (
+    <div className="flex flex-col items-center gap-4 ">
+      <div className="rounded-full md:h-52 h-44 w-44 md:w-52  overflow-hidden relative group cursor-pointer">
+        <PhotoProvider
+          toolbarRender={({ onScale, scale, rotate, onRotate }) => {
+            return (
+              <>
+                <i
+                  className="PhotoView-Slider__toolbarIcon fa-solid fa-magnifying-glass-plus"
+                  onClick={() => onScale(scale + 1)}
+                />
+                <i
+                  className="PhotoView-Slider__toolbarIcon fa-solid fa-magnifying-glass-minus"
+                  onClick={() => onScale(scale - 1)}
+                />
+                <i
+                  className="PhotoView-Slider__toolbarIcon fa-solid fa-rotate-right"
+                  onClick={() => onRotate(rotate + 90)}
+                />
+              </>
+            );
+          }}
+        >
+          <PhotoView src={preview || noimg}>
+            <img
+              placeholder="blur"
+              src={preview ? preview || myImg : noimg}
+              alt="Logo"
+              width={400}
+              height={400}
+              className="w-full h-full object-cover border-2 border-red-700 rounded-full"
+              blurDataURL="/blur.png"
+            />
+          </PhotoView>
+        </PhotoProvider>
 
-        </div>
-    );
-};
+        <Button
+          onClick={triggerInputFile}
+          variant="contained"
+          className="bg-black/50 group-hover:flex hover:bg-black/70  lg:hidden  absolute top-2/3 overflow-hidden h-1/3 w-full text-white  flex-col items-center duration-500 justify-center text-sm font-bold"
+        >
+          <CameraAltIcon />
+          <span>Change</span>
+        </Button>
+      </div>
 
-export default PhotoUpload;
+      <div className="hidden">
+        <input
+          type="file"
+          id="fileInput"
+          name="fileInput"
+          ref={fileInputRef}
+          accept="image/*"
+          onChange={(e) => setPicture(e.currentTarget.files[0])}
+        ></input>
+      </div>
+      <div className="flex items-center gap-4">
+        {picture?.size > 0 && (
+          <Button
+            onClick={(e) => {
+              setPicture([]); setPreview(null);
+            }}
+            variant="contained"
+            className="font-display capitalize bg-red-700/30 text-white hover:bg-red-700 lg:text-xl md:text-lg text-base"
+          >
+            <DoNotDisturbIcon className="pr-2" />
+            Cancel
+          </Button>
+        )}
+        {picture?.size > 0 && (
+          <Button
+            onClick={(e) => UpdateProfileAvatar()}
+            variant="contained"
+            className="font-display capitalize bg-gray-300 text-white hover:bg-gray-700 lg:text-xl md:text-lg text-base"
+          >
+            <SaveIcon className="pr-2" />
+            Save
+          </Button>
+        )}
+      </div>
+    </div>
+  );
+}

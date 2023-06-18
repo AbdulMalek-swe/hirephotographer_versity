@@ -13,7 +13,7 @@ const Sidebar = () => {
     setIsOpen(!isOpen);
   };
   const user = useSelector(state => state?.reducer?.user)
-  console.log(user);
+    
   const handleDelete = e => {
     store.dispatch(addUserActions.removeUser());
     removeCookie("access_token", { path: "/" });
@@ -54,9 +54,9 @@ const Sidebar = () => {
         </div>
         <div>
              {user?.imageURL&&<img className='ml-5 w-10 h-10 rounded-full' src={user.imageURL} alt='loading'/>}
-             <Link to="/upload" className='ml-5'>
-              Upload
-             </Link>
+             {user?.email&& <Link to="/profile" className='ml-5'>
+               profile
+             </Link>}
         </div>
         <nav className="flex-1">
           <ul className="space-y-4 p-4">
