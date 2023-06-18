@@ -1,151 +1,125 @@
 import {
-    useStripe,
-    useElements,
-    PaymentElement,
-  } from "@stripe/react-stripe-js";
-  import Button from "@mui/material/Button";
-  import React, { useEffect, useState } from "react";
-  import { toast } from "react-toastify";
-  
-  // import { addUserActions } from "../../redux/features/addUser";
-  import Backdrop from '@mui/material/Backdrop';
-  import CircularProgress from '@mui/material/CircularProgress';
- 
-  
+  useStripe,
+  useElements,
+  PaymentElement,
+} from "@stripe/react-stripe-js";
+import Button from "@mui/material/Button";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+// import { addUserActions } from "../../redux/features/addUser";
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 import axios from "apiService/axios";
-  
-  
-  
-  
-  const CheckoutForm = ({ amount }) => {
-    const stripe = useStripe();
-    const elements = useElements();
-  
-    const [message, setMessage] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-  
-     
-  
-  
-    useEffect(() => {
-       const payment_id = sessionStorage.getItem("paymentIntentId");
-       if(payment_id!==null){
-        submitForm(payment_id);
-        sessionStorage.removeItem("paymentIntentId");
-       }
-       
-     // console.log("value",payment_id)
-     
-    },[]);
-  
-  
-    //make payment through stripe
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-  
-      if (!stripe || !elements) {
-        return;
-      }
-      setIsLoading(true);
-      const loading = toast.loading(
-        "Please wait a moment while we are processing your payment."
-      );
-  
-      try {
-        const data = await stripe.confirmPayment({
-          elements,
-          confirmParams: {
-            return_url: `${window.location.href}/login`,
-          },
-          redirect: "if_required",
-        });
-        toast.dismiss(loading);
-        const { error } = data;
-      
-        if (error) {
-          setMessage(error.message);
-          toast.error(message);
-          setIsLoading(false);
-        } else {
-          setMessage("Payment successfull !");
-          toast.success(message);
-          await submitForm(data?.paymentIntent?.id);
-        }
-      } catch (error) {
-        setMessage("Error processing payment.");
-        toast.error(message);
-      }
-    };
-  
-  
-   
-  
-    //save data to backend
-   
-    async function submitForm(paymentIntentId) {
-      console.log(paymentIntentId);
-      sessionStorage.setItem("paymentIntentId", paymentIntentId);
-      try {
-        const res = await axios.post(`/payment/confirm`, {
-          payment_id: paymentIntentId,
-        });
-        const { status, data } = res;
-       console.log("subscription submit response ", data);
-        setIsLoading(false);
-        sessionStorage.removeItem("paymentIntentId");
-        if (status === 201) {
-          toast.success(data?.message);
-         
-          // setIsLoading(true);
-          console.log("");
-         
-          
-         
-          console.log(" is bakcsdfds");
-        }
-      } catch (error) {
-        console.log(error);
-        const { status, data } = error?.response;
-  
-        if (status === 422) {
-       //   console.log("422 test");
-          Object.entries(data?.errors)?.map((error) => toast.error(error[1][0]));
-        } else {
-          toast.error(data?.error);
-        }
-       // console.log("error from submit", error);
-      }
+const CheckoutForm = ({ amount }) => {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [message, setMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    const payment_id = sessionStorage.getItem("paymentIntentId");
+    if (payment_id !== null) {
+      submitForm(payment_id);
+      sessionStorage.removeItem("paymentIntentId");
     }
-  
-    return (
-      <>
+    // console.log("value",payment_id)
+  }, []);
+  //make payment through stripe
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!stripe || !elements) {
+      return;
+    }
+    setIsLoading(true);
+    const loading = toast.loading(
+      "Please wait a moment while we are processing your payment."
+    );
+
+    try {
+      const data = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: `${window.location.href}/login`,
+        },
+        redirect: "if_required",
+      });
+      toast.dismiss(loading);
+      const { error } = data;
+
+      if (error) {
+        setMessage(error.message);
+        toast.error(message);
+        setIsLoading(false);
+      } else {
+        setMessage("Payment successfull !");
+        toast.success(message);
+        await submitForm(data?.paymentIntent?.id);
+      }
+    } catch (error) {
+      setMessage("Error processing payment.");
+      toast.error(message);
+    }
+  };
+  //save data to backend
+  async function submitForm(paymentIntentId) {
+    console.log(paymentIntentId);
+    sessionStorage.setItem("paymentIntentId", paymentIntentId);
+    try {
+      const res = await axios.post(`/payment/confirm`, {
+        payment_id: paymentIntentId,
+      });
+      const { status, data } = res;
+      console.log("subscription submit response ", data);
+      setIsLoading(false);
+      sessionStorage.removeItem("paymentIntentId");
+      if (status === 201) {
+        toast.success(data?.message);
+        // setIsLoading(true);
+        console.log("");
+        console.log(" is bakcsdfds");
+      }
+    } catch (error) {
+      console.log(error);
+      const { status, data } = error?.response;
+      if (status === 422) {
+        //   console.log("422 test");
+        Object.entries(data?.errors)?.map((error) => toast.error(error[1][0]));
+      } else {
+        toast.error(data?.error);
+      }
+      // console.log("error from submit", error);
+    }
+  }
+
+  return (
+    <>
       <Backdrop
-      sx={{ color: '#D4A934', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={isLoading}
-      
-    >
-      <CircularProgress color="inherit" />
-    </Backdrop>
+        sx={{ color: '#D4A934', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={isLoading}
+
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <div className=" lg:p-20 md:p-10 p-5  mt-10 bg-white lg:w-2/3 xl:w-2/5 md:w-4/5 w-full border rounded-lg overflow-hidden mx-auto py-10">
         <h4 className="text-primary2 font-bold font-display text-center md:text-2xl text-xl lg:text-3xl  tracking-wide  pb-5">
-          Subscribe  Traclin 
+          Subscribe  Traclin
         </h4>
         <form onSubmit={handleSubmit} className="mt-2  ">
           <PaymentElement />
-  
+
           <div className="mt-5 ">
             <Button
-               name="Pay now"
+              name="Pay now"
               disabled={!stripe || isLoading}
               variant="contained"
               type="submit"
-              className="lg:text-xl md:textlg text-base capitalize font-display font-bold w-full  py-2 bg-primary text-white hover:text-white hover:bg-primary2"
+              className="lg:text-xl md:textlg text-base capitalize font-display font-bold w-full  py-2 bg-red-600 text-white hover:text-white hover:bg-primary2"
             >
               Pay Now £{amount}/Year
             </Button>
           </div>
         </form>
-  
+
         <div className="mt-2 flex justify-end items-center">
           <small className="mr-2 text-caption font-weight-bold">powered by</small>
           <svg
@@ -161,8 +135,8 @@ import axios from "apiService/axios";
           </svg>
         </div>
       </div>
-      </>
-    );
-  };
-  
-  export default CheckoutForm;
+    </>
+  );
+};
+
+export default CheckoutForm;
