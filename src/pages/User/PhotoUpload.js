@@ -19,9 +19,9 @@ export default function ImageSection() {
   const fileInputRef = useRef(null);
   const [picture, setPicture] = useState([]);
   const [preview, setPreview] = useState();
-  const User = useSelector((state) => state?.reducer?.User);
+  const User = useSelector((state) => state?.reducer?.user);
   // console.log(User);
-  const myImg = process.env.REACT_APP_BASE_URL + User?.profile_picture[0]?.img ;
+  const myImg =  User?.imageURL ;
    
   // console.log(myImg,process.env.REACT_BASE_URL);
   useEffect(()=>{
@@ -52,7 +52,7 @@ export default function ImageSection() {
   
     // const loading = toast.loading("Please wait a moment...");
     try {
-      const res = await axios.post(`/api/account/profile-picture/`, formData);
+      const res = await axios.post(`/upload-user`, formData);
       const { status, data } = res;
     console.log(res);
       if (status === 200) {
