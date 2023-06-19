@@ -5,22 +5,22 @@ import { Link } from 'react-router-dom';
 const Modal = () => {
     const [isOpen, setIsOpen] = useState(true);
 
-    useEffect(() => {
-      let timerInterval;
+    // useEffect(() => {
+    //   let timerInterval;
     
-      function timer(isBoolean) {
-        timerInterval = setInterval(() => {
-          setIsOpen(isBoolean);
-        }, 10000);
-      }
+    //   function timer(isBoolean) {
+    //     timerInterval = setInterval(() => {
+    //       setIsOpen(isBoolean);
+    //     }, 10000);
+    //   }
     
-      if (isOpen) {
-        timer(false);
-      }
+    //   if (isOpen) {
+    //     timer(false);
+    //   }
     
-      return () => clearInterval(timerInterval); // Clear the interval when the component unmounts
+    //   return () => clearInterval(timerInterval); // Clear the interval when the component unmounts
     
-    }, [isOpen]);
+    // }, [isOpen]);
     
     // useEffect(() => {
     //   const closeTimer = setTimeout(() => {

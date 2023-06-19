@@ -10,7 +10,8 @@ const Photographer = () => {
     axios.get("/photographer")
     .then(res=>{
       console.log(res);
-      setPhotographer(res?.data?.data)
+      const filter = res?.data?.data.filter(item=>item.activeStatus==='true')
+      setPhotographer(filter)
     })
   },[])
     return (

@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from "apiService/axios";
+import { useParams } from "react-router-dom";
 const CheckoutForm = ({ amount }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -61,12 +62,14 @@ const CheckoutForm = ({ amount }) => {
     }
   };
   //save data to backend
+  const {id} = useParams()
   async function submitForm(paymentIntentId) {
     console.log(paymentIntentId);
     sessionStorage.setItem("paymentIntentId", paymentIntentId);
     try {
       const res = await axios.post(`/payment/confirm`, {
         payment_id: paymentIntentId,
+        id:id
       });
       const { status, data } = res;
       console.log("subscription submit response ", data);
