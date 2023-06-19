@@ -15,6 +15,7 @@ import Stripe from "pages/Payment/Stripe";
 import Contacts from "pages/Dashboard/Contact";
 import PhotographerHandle from "pages/Dashboard/PhotographerHandle";
 import ProfileF from "pages/User/Profile";
+import MyHired from "pages/User/MyHired";
  
  
 const { createBrowserRouter } = require("react-router-dom");
@@ -38,6 +39,10 @@ const route = createBrowserRouter([
           { 
                path:"/profile",
                element:<ProfileF/>
+          },
+          { 
+               path:"/hire",
+               element:<MyHired/>
           }
           
        ]

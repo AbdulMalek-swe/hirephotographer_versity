@@ -35,7 +35,6 @@ const CheckoutForm = ({ amount }) => {
     const loading = toast.loading(
       "Please wait a moment while we are processing your payment."
     );
-
     try {
       const data = await stripe.confirmPayment({
         elements,

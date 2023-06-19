@@ -54,7 +54,7 @@ const Sidebar = () => {
         </div>
         <div>
              {user?.imageURL&&<img className='ml-5 w-10 h-10 rounded-full' src={user.imageURL} alt='loading'/>}
-             {user?.email&& <Link to="/profile" className='ml-5'>
+             {user?.email&& <Link to="/profile"className="text-gray-400 hover:text-white ml-4">
                profile
              </Link>}
         </div>
@@ -64,6 +64,11 @@ const Sidebar = () => {
               <Link to="/" className="text-gray-400 hover:text-white">
                 Home
               </Link>
+            </li>
+            <li>
+            {user?.email&& <Link to="/hire" className="text-gray-400 hover:text-white">
+                 HireList
+             </Link>}
             </li>
             <li>
               <Link to="/about" className="text-gray-400 hover:text-white">

@@ -4,7 +4,8 @@ const UserData = {
   firstName: "",
   lastName: "",
   role:"",
-  imageURL:""
+  imageURL:"",
+  id:""
    
 };
 const addUserSlices = createSlice({
@@ -13,6 +14,7 @@ const addUserSlices = createSlice({
   reducers: {
     addUser: (state, action) => {
       state.email = action.payload.email;
+      state.id = action.payload._id;
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
       state.role = action.payload.role;
@@ -20,6 +22,7 @@ const addUserSlices = createSlice({
     },
     removeUser: (state, action) => {
       state.email = "";
+      state.id="";
       state.firstName =  "";
       state.lastName = "";
       state.role = "";
