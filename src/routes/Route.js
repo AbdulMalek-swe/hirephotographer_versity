@@ -18,6 +18,7 @@ import ProfileF from "pages/User/Profile";
 import MyHired from "pages/User/MyHired";
 import HireGraph from "pages/Dashboard/DashboardHome/HiredGraph";
 import DashHome from "pages/Dashboard/DashboardHome/DashHome";
+import Photographer from "pages/Photographer/Photographer";
  
  
 const { createBrowserRouter } = require("react-router-dom");
@@ -33,6 +34,9 @@ const route = createBrowserRouter([
           {
                path:"/",
                element:<Home/>
+          },{
+            path:"/photographer",
+            element:<Photographer/>
           },
           {
                path:"/about",

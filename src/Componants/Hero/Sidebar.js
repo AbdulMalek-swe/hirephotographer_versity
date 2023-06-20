@@ -66,6 +66,11 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
+              <Link to="/photographer" className="text-gray-400 hover:text-white">
+                  photographer
+              </Link>
+            </li>
+            <li>
             {user?.email&& <Link to="/hire" className="text-gray-400 hover:text-white">
                  HireList
              </Link>}

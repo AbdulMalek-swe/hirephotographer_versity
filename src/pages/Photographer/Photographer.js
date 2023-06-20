@@ -16,6 +16,7 @@ const Photographer = () => {
     .then(res=>{
        
       const filter = res?.data?.data.filter(item=>item.activeStatus==='true')
+      console.log(filter);
       setPhotographer(filter)
     })
   },[])
@@ -30,6 +31,7 @@ const Photographer = () => {
   }
     return (
        <div className='container-sk'>
+        <h1 className='capitalize bg-red-700 text-blue-500 text-4xl py-5 text-center'>photographer list</h1>
          <div  className='flex flex-wrap gap-y-3 '>
            { photographer.map(item=><div className="max-w-xs mx-auto bg-white rounded shadow-lg p-6 relative border border-[#BECCBE]">
       <div className="flex items-center justify-center" key={item._id}>

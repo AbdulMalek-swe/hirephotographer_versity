@@ -16,7 +16,7 @@ const MyHired = () => {
            <div  className='flex flex-wrap gap-y-3 '>
              { photographer.map(item=><div className="max-w-xs mx-auto bg-white rounded shadow-lg p-6 relative border border-[#BECCBE]">
         <div className="flex items-center justify-center" key={item._id}>
-          <img src={item.imageURL} alt="loading ..." className="w-[150px] h-[150px] rounded-full" />
+          <img src={item.img} alt="loading ..." className="w-[150px] h-[150px] rounded-full" />
           <p className="absolute top-0 right-0 text-2xl font-bold mt-2 mr-2">${item?.amount}/hr</p>
         </div>
         <div className="p-4 text-center">
