@@ -81,7 +81,11 @@ const DashHome = () => {
                   Photographer
                 </Link>
               </li>
-              
+              <li>
+                <Link to="/dashboard/contact" className="text-gray-400 hover:text-white">
+                  Contact
+                </Link>
+              </li>
               
               <li>
                  

@@ -71,9 +71,12 @@ const Sidebar = () => {
              </Link>}
             </li>
             <li>
-              <Link to="/dashboard" className="text-gray-400 hover:text-white">
+              {
+                user.role=='admin' && <Link to="/dashboard" className="text-gray-400 hover:text-white">
                 dashboard
               </Link>
+              }
+              
             </li>
             <li>
               <Link to="/about" className="text-gray-400 hover:text-white">

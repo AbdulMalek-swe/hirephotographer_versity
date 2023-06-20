@@ -12,8 +12,8 @@ const Contact = () => {
     console.log(user);
        const onsubmit= (data)=>{
     console.log(data);
-    const userData ={   message:data.message }
-    console.log(userData);
+    const userData ={   message:data.message,email:user.email }
+    
     axios.post('/contact',userData)
       .then(data => {
          if(data.status==200){

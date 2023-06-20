@@ -150,7 +150,6 @@ function App() {
         <div className="bg-red-700">
           {
             toggle && <Chatbot
-
               config={config}
               messageParser={MessageParser}
               actionProvider={ActionProvider}

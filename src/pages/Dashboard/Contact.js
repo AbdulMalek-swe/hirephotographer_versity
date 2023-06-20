@@ -22,9 +22,11 @@ const Contacts = () => {
     console.log(user);
     const onsubmit = (data) => {
         console.log(data);
-        const userData = { message: data.message }
+        const email = contact.find(item=>item._id==messageId)
+        console.log(email.email);
+        const userData = { message: data.message,email:email.email}
         console.log(userData);
-        axios.post('/contact', userData)
+        axios.post('/contact/send', userData)
             .then(data => {
                 if (data.status == 200) {
                     toast.success("successfully register")
@@ -56,14 +58,14 @@ const Contacts = () => {
                                     <button className="bg-gray-400 px-6 py-3" onClick={() => setMessageId(item?._id)}>message</button>
                                 </div>
 
-                                {item._id == messageId && <div className=' '>
+                                {item._id == messageId && <div className='bg-red-700 '>
                                     <form className="  flex justify-start items-center" onSubmit={handleSubmit(onsubmit)}>
                                         <div className=' '>
                                             <div>
                                                 {/* <CustomeLabel name={"Message"} /> */}
                                                 <textarea type="text" placeholder=" reply for  user comment" className="block border w-full px-5 py-3 mt-2 text-[#eae9e9d4]  placeholder-[#eae9e9d4] bg-transparent shadow-lg rounded-lg " {...register("message")} required />
                                             </div>
-
+                                            
 
                                         </div>
 
