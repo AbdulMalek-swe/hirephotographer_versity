@@ -78,7 +78,7 @@ const PhotographerHandle = () => {
         <div className="flex items-center justify-center" key={item._id}>
           <img src={item.imageURL} alt="loading ..." className="w-[150px] h-[150px] rounded-full" />
           <p className="absolute top-0 right-0 text-2xl font-bold mt-2 mr-2">${item?.amount}/hr</p>
-        </div>
+        </div> 
         <div className="p-4 text-center">
           <h2 className="text-xl font-semibold mb-2">{item?.name}</h2>
           <p className="text-gray-700">Photographer</p>

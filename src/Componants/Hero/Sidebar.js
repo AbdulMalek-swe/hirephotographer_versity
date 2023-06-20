@@ -71,6 +71,11 @@ const Sidebar = () => {
              </Link>}
             </li>
             <li>
+              <Link to="/dashboard" className="text-gray-400 hover:text-white">
+                dashboard
+              </Link>
+            </li>
+            <li>
               <Link to="/about" className="text-gray-400 hover:text-white">
                 About
               </Link>

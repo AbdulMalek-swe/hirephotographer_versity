@@ -16,6 +16,8 @@ import Contacts from "pages/Dashboard/Contact";
 import PhotographerHandle from "pages/Dashboard/PhotographerHandle";
 import ProfileF from "pages/User/Profile";
 import MyHired from "pages/User/MyHired";
+import HireGraph from "pages/Dashboard/DashboardHome/HiredGraph";
+import DashHome from "pages/Dashboard/DashboardHome/DashHome";
  
  
 const { createBrowserRouter } = require("react-router-dom");
@@ -43,42 +45,58 @@ const route = createBrowserRouter([
           { 
                path:"/hire",
                element:<MyHired/>
-          }
+          },
+           {
+               path:"/sign",
+               element:  <PublicRoute> <Register/></PublicRoute>  
+          },
+          {
+           path:"/upload",
+           element:<PhotoUpload/>
+          },
+          {
+               path:"/login",
+               element: <PublicRoute><Login/></PublicRoute> 
+          },
+          {
+               path:"/join/photographer",
+               element: <ProtectedRoute><RegisterPhotographer/></ProtectedRoute>  
+          },
+          {
+               path:"/contact",
+               element:<Contact/>
+          },
+          {
+               path:"/contacts",
+               element:<Contacts/>
+          },
+          {
+               path:"/payment/:id",
+               element:<Stripe/>
+          },
           
        ]
      },
+    
+      
      {
-          path:"/sign",
-          element:  <PublicRoute> <Register/></PublicRoute>  
-     },
-     {
-      path:"/upload",
-      element:<PhotoUpload/>
-     },
-     {
-          path:"/login",
-          element: <PublicRoute><Login/></PublicRoute> 
-     },
-     {
-          path:"/join/photographer",
-          element: <ProtectedRoute><RegisterPhotographer/></ProtectedRoute>  
-     },
-     {
-          path:"/contact",
-          element:<Contact/>
-     },
-     {
-          path:"/contacts",
-          element:<Contacts/>
-     },
-     {
-          path:"/payment/:id",
-          element:<Stripe/>
-     },
-      {
-          path:"/photographer-handle",
-          element:<PhotographerHandle/>
-     },
+          path:"/dashboard",
+          element:<DashHome/>,
+          children:[
+               {
+                    path:"/dashboard/photographer-handle",
+                    element:<PhotographerHandle/>
+               },
+               {
+                    path:"/dashboard",
+                    element:<HireGraph/>
+               },
+               {
+                    path:"/dashboard/contact",
+                    element:<Contacts/>
+               },
+          ]
+     }
      
 ])
 export default route;
