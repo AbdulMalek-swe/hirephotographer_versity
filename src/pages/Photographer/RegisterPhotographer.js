@@ -12,7 +12,7 @@ const RegisterPhotographer = () => {
     console.log(user);
 const onsubmit= (data)=>{
    
-    const userData ={ email:user?.email,pdfLink:data?.pdf,name:data?.name,contactNumber:data.contactNumber }
+    const userData ={ email:user?.email,pdfLink:data?.pdf,name:data?.name,contactNumber:data.contactNumber,img:user?.imageURL }
     console.log(userData);
     axios.post('/photographer',userData)
       .then(data => {

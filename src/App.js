@@ -142,7 +142,7 @@ function App() {
   const [toggle, setToggle] = useState(false);
   
   return (
-    <div >
+    <div className="  bg-hero-pattern bg-center bg-cover bg-no-repeat bg-static bg-fixed">
       <div className="fixed bottom-10 right-5 z-10">
         <button onClick={() => setToggle(!toggle)} className="bg-red-700 rounded-full p-6">
           <ChatBubbleOutlineIcon />
